@@ -1,0 +1,13 @@
+Docker file
+
+FROM ubuntu
+WORKDIR /mnt/
+RUN apt-get update && apt install default-jdk -y
+ADD https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.85/bin/apache-tomcat-8.5.85.zip /mnt/
+RUN apt install zip -y && unzip apache-tomcat-8.5.85.zip
+COPY student.war apache-tomcat-8.5.85/webapps/
+ADD https://s3-us-west-2.amazonaws.com/studentapi-cit/mysql-connector.jar apache-tomcat-8.5.85/lib/
+COPY context.xml apache-tomcat-8.5.85/conf/
+RUN chmod +x apache-tomcat-8.5.85/bin/catalina.sh
+CMD ["/mnt/apache-tomcat-8.5.85/bin/catalina.sh", "run"]
+EXPOSE 8080
