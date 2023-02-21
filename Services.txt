@@ -1,0 +1,51 @@
+service.yaml (clusterIp)
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myclusterservice
+spec:
+  selector:
+    app: my-app
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80 
+	  
+	  
+nodeport.yaml
+	  
+apiVersion: v1
+kind: Service
+metadata:
+  name: mynodeportservice
+spec:
+  selector:
+    app: my-app
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 30007
+        
+	  
+	  
+lb.yaml(load balancer)
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: name: myservice-loadbalancer
+spec:
+  selector:
+    app: my-app
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+    
+	  
+	  
